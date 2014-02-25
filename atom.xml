@@ -1,0 +1,27 @@
+---
+layout: nil
+canonical: http://springlie.github.io
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>springlie</title>
+    <link href="{{ page.canonical }}/atom.xml" rel="self" />
+    <link href="{{ page.canonical }}" />
+    <updated>{{ site.time | date_to_xmlschema }}</updated>
+    <id>{{ page.canonical }}</id>
+    <author>
+        <name>springlie</name>
+        <email>springlie@163.com</email>
+    </author>
+    {% for post in site.posts %}
+    {% if post.layout == 'post' %}
+    <entry>
+        <title>{{ post.title }}</title>
+        {% if post.extlink %}<link href="{{ post.extlink }}" />{% else %}<link href="{{ page.canonical }}{{ post.uri }}" />{% endif %}
+        <updated>{{ post.date | date_to_xmlschema }}</updated>
+        <id>{{ page.canonical }}{{ post.id }}</id>
+        <content type="html">{{ post.content | xml_escape }}</content>
+    </entry>
+    {% endif %}
+    {% endfor %}
+</feed>

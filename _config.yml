@@ -2,5 +2,9 @@
 timezone: Asia/Shanghai
 encoding: UTF-8
 
-# Buildx``
+# Build
 lsi: true
+
+markdown: redcarpet
+highlighter: pygments
+exclude: [Rakefile, README.md]
