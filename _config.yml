@@ -1,0 +1,6 @@
+# Global
+timezone: Asia/Shanghai
+encoding: UTF-8
+
+# Buildx``
+lsi: true
