@@ -1,11 +1,10 @@
 ---
 layout: main
 background-image: http://i.imgur.com/0eQ5v.jpg
-author: Mort
+author: Springlie
 ---
 <div id="divTitle">
     <h1>{{ page.title }}</h1>
-    <p><div class="g-plusone" data-size="medium" data-annotation="none"></div></p>
     <p><b>{{ page.date | date_to_string }}</b>, by <b>{{ page.author }}</b></p>
     <p>{{ page.description }}</p>
     <div id="divTitleNav">
@@ -23,7 +22,7 @@ author: Mort
         <div id="divDisqus">
             <div id="disqus_thread"></div>
             <script type="text/javascript">
-                var disqus_shortname = 'soimort';
+                var disqus_shortname = 'springlie';
                 {% if page.disqus-url %}
                 var disqus_url = 'http://springlie.github.io{{ page.disqus-url }}';
                 {% else %}

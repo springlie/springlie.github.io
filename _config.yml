@@ -1,10 +1,13 @@
-# Global
 timezone: Asia/Shanghai
 encoding: UTF-8
 
-# Build
-lsi: true
-
 markdown: redcarpet
-highlighter: pygments
 exclude: [Rakefile, README.md]
+lsi: true
+redcarpet:
+  extensions:
+    - hard_wrap
+    - no_intra_emphasis
+    - autolink
+    - strikethrough
+    - fenced_code_blocks

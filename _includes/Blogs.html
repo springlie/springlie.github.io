@@ -1,10 +1,6 @@
 {% for post in site.posts %}
-{% if post.layout == 'post' and post.lang == 'en' %}
-{% if post.permalink == nil %}
+{% if post.auto == nil or post.auto == 'false' %}
 <a href="{{ post.url }}">
-{% else %}
-<a href="{{ post.uri }}">
-{% endif %}
     <div class="divIndex">
         <div class="divIndexTitle">{{ post.title }}</div>
         <div class="divIndexDate">{{ post.date | date_to_string }}</div>

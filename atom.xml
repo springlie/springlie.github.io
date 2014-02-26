@@ -17,7 +17,7 @@ canonical: http://springlie.github.io
     {% if post.layout == 'post' %}
     <entry>
         <title>{{ post.title }}</title>
-        {% if post.extlink %}<link href="{{ post.extlink }}" />{% else %}<link href="{{ page.canonical }}{{ post.uri }}" />{% endif %}
+        {% if post.extlink %}<link href="{{ post.extlink }}" />{% else %}<link href="{{ page.canonical }}{{ post.id }}" />{% endif %}
         <updated>{{ post.date | date_to_xmlschema }}</updated>
         <id>{{ page.canonical }}{{ post.id }}</id>
         <content type="html">{{ post.content | xml_escape }}</content>
