@@ -28,14 +28,14 @@
 // add Coderwall badges
 (function(){
     var appendCoderwallBadge = function(){
-        var coderwallJSONurl ="http://www.coderwall.com/soimort.json?callback=?"
+        var coderwallJSONurl ="http://www.coderwall.com/springlie.json?callback=?"
           , size = 32
           ;
 
         $.getJSON(coderwallJSONurl, function(data) {
             $.each(data.data.badges, function(i, item){
                 var a = $("<a>")
-                    .attr("href", "http://www.coderwall.com/soimort/")
+                    .attr("href", "http://www.coderwall.com/springlie/")
                     .attr("target", "_blank")
                     ;
 
@@ -49,7 +49,6 @@
                         function(){ $(this).css("opacity", "0.6"); }
                       , function(){ $(this).css("opacity", "1.0"); }
                     )
-//                    .click( function(){ window.location = "http://www.coderwall.com/soimort/"; })
                     .appendTo(a)
                     ;
                 $("#coderwall").append(a);
