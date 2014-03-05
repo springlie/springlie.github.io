@@ -91,7 +91,7 @@ pb和pc可以被`auto_ptr<A>`正确赋值，而pd不能被普通指针A*赋值�
 
 而要回答第二个问题，请先看看本文开头描述的两种行为中的第一种，按说，在`auto_ptr_copying`中的pd被赋值时，new A应该可以由编译器隐式转换为`anto_ptr<A>`类型的，怎么就失败了呢！ 打开auto_ptr定义所在stl中的memory文件，源码是这样的：
 
-```cpp linenos
+{% highlight cpp loinenos %}
 template<typename _Tp>
     class auto_ptr
     {
@@ -114,7 +114,7 @@ template<typename _Tp>
       // other source code
       // ......
     }
-```
+{% endhighlight %}
 
 注意第17行上的修饰构造函数的`explicit`关键字，它规定auto_ptr的构造函数不能参与隐式转换（在隐式转换时禁止调用），只能显式进行转换，因此在`auto_ptr_copying`中没有隐式转换。问题貌似到此已经清楚了。
 
