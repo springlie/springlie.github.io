@@ -76,7 +76,7 @@ auto_ptr<A> pc = auto_ptr<A>(new A);
 // auto_ptr<A> pd = new A;
 ```
 
-pb和pc可以被auto_ptr<A>正确赋值，而pd不能被普通指针A*赋值。
+pb和pc可以被`auto_ptr<A>`正确赋值，而pd不能被普通指针A*赋值。
 
 这里涉及到的问题有两个：
 
@@ -89,7 +89,7 @@ pb和pc可以被auto_ptr<A>正确赋值，而pd不能被普通指针A*赋值。
 
 第一个问题比较明了，因为auto_ptr中有“资源所有权”的问题，每时每刻，某一个资源（比如一块内存神马的）只能属于一个auto_ptr，因此在它的copying函数实现中，必定会包含有资源所有权转移的代码。而普通指针并没有所有权的概念，当然不能被作为copying函数的参数。这种行为肯定是应该禁止的。
 
-而要回答第二个问题，请先看看本文开头描述的两种行为中的第一种，按说，在`auto_ptr_copying`中的pd被赋值时，new A应该可以由编译器隐式转换为`anto_ptr<A>1类型的，怎么就失败了呢！ 打开auto_ptr定义所在stl中的memory文件，源码是这样的：
+而要回答第二个问题，请先看看本文开头描述的两种行为中的第一种，按说，在`auto_ptr_copying`中的pd被赋值时，new A应该可以由编译器隐式转换为`anto_ptr<A>`类型的，怎么就失败了呢！ 打开auto_ptr定义所在stl中的memory文件，源码是这样的：
 
 ```cpp linenos
 template<typename _Tp>
