@@ -58,7 +58,7 @@ private:
 
 为了验证书中论述，写两个文件如下：
 
-```cpp
+{% highlight cpp linenos %}
 // myclass.h 
  
 #include "iostream" 
@@ -73,7 +73,7 @@ private:
 	template<typename O> 
 	myclass(myclass<O>& o){ cout << "in_member_template_cotr" << endl; } 
 };
-```
+{% endhighlight %}
 
 在myclass中，专门将成员模板函数设为private，以测验它是否能够屏蔽默认拷贝构造函数。
 
