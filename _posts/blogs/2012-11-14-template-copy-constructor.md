@@ -12,11 +12,17 @@ permalink: /blogs/template-copy-constructor
 
 ---
 
-在[《exceptional c++》](http://www.amazon.cn/Exceptional-C-%E4%B8%AD%E6%96%87%E7%89%88-Herb-Sutter/dp/B0011BWWCG)一书中描述第5~6问题时，给出一个类`fixed_vector`的定义，其中包含了两个成员模板函数。[《exceptional c++》](http://www.amazon.cn/Exceptional-C-%E4%B8%AD%E6%96%87%E7%89%88-Herb-Sutter/dp/B0011BWWCG)说明：
-	
-这两个函数不能被作为拷贝构造函数和赋值函数，类型O不可能等于类型T；这两个函数也不能阻止编译器自动生成的默认拷贝构造函数和默认赋值函数。
+[exceptional-cpp]: http://www.amazon.cn/Exceptional-C-%E4%B8%AD%E6%96%87%E7%89%88-Herb-Sutter/dp/B0011BWWCG
 
-“由于模板构造函数永远都不能成为拷贝构造函数，因此它们的出现并不会妨碍在类中隐式地声明拷贝构造函数。模板构造函数，包括拷贝构造函数，将与其他构造函数一起，共同参与到重载解析中，并且，如果模板构造函数能比其他的构造函数提供更好的匹配，那么可以用它来对对象进行赋值。”	
+在[《exceptional c++》][exceptional-cpp]一书中描述第5~6问题时，给出一个类`fixed_vector`的定义，其中包含了两个成员模板函数。
+
+[《exceptional c++》][exceptional-cpp]说明：
+	
+- 这两个函数不能被作为拷贝构造函数和赋值函数，类型O不可能等于类型T
+- 这两个函数也不能阻止编译器自动生成的默认拷贝构造函数和默认赋值函数。
+- “由于模板构造函数永远都不能成为拷贝构造函数，因此它们的出现并不会妨碍在类中隐式地声明拷贝构造函数。”
+- “模板构造函数，包括拷贝构造函数，将与其他构造函数一起，共同参与到重载解析中。”
+- “并且，如果模板构造函数能比其他的构造函数提供更好的匹配，那么可以用它来对对象进行赋值。”	
 
 具体代码如下：
 
@@ -100,12 +106,12 @@ int main()
 
 编译结果：
 
-	make
-	g++ -o app main.cc
-	myclass.h: In function ‘int main()’:
-	myclass.h:11: error: ‘myclass<T>::myclass(myclass<O>&) [with O = int, T = int]’ is private
-	main.cc:12: error: within this context
-	make: *** [all] error 1
+> make
+> g++ -o app main.cc
+> myclass.h: In function ‘int main()’:
+> myclass.h:11: error: ‘myclass<T>::myclass(myclass<O>&) [with O = int, T = int]’ is private
+> main.cc:12: error: within this context
+> make: *** [all] error 1
 
 而将`myclass.h`中第13行改为
 
