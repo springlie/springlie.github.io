@@ -22,7 +22,7 @@ permalink: /blogs/dont-use-char_ptr-as-key-of-hash_map
 
 ---
 
-带着这三个问题去查看了libstdc++中关于hash_map的实现（省略了与讨论无关部分）：
+带着这三个问题去查看了libstdc++中关于hash_map的实现(省略了与讨论无关部分)：
 
 {% highlight cpp linenos %}
 // hash_map
@@ -76,23 +76,23 @@ hashtable的具体实现是：
 
 1. 由一个bucket数组组成
 2. 每个bucket下面挂着一个hash_node组成的list
-3. 每个hash_node由一个_Val对象（存储真正元素）和一个hash_node指针（next指针）组成
+3. 每个hash_node由一个_Val对象(存储真正元素)和一个hash_node指针(next指针)组成
 
 hashtable的工作过程是：
 
 1. 将key用_HashFn进行hash
-2. 将hash的结果执行取模操作%n（其中n是hashtable中bucket的数目），定位到具体bucket的位置
+2. 将hash的结果执行取模操作%n(其中n是hashtable中bucket的数目)，定位到具体bucket的位置
 3. 依次用_EqualKey比较bucket中hash_node的key，找到与输入元素相同的node，返回；若找不到，则构造一个node返回
 
 ---
 
 下面来回答篇首提出的三个问题:
 
-	为什么用char*（或const char*）作为key，可以顺利insert，却不能顺利find？
+	为什么用char*(或const char*)作为key，可以顺利insert，却不能顺利find？
 
 因为Insert时，会将char*指针进行hash，默认的内置hash函数接受char*作为参数，并将所指字符串进行hash，直到串尾。因此可以顺利找到bucket，但在进一步查找比对key时，用的是equal_to<char*>函数，它是直接比对指针的！一般来说，进行insert操作时，指针是不相同的，因此每次insert都生成新的node返回，insert正确。用size()方法也可以验证到，确实能够insert成功。
 
-而在find操作中（假设用来insert的key已经在hash表中，本应可以命中的），同理可以找到bucket，但是在比对key时用的是char*指针，而实情却是char*所指的内容相同！但equal_to<char*>不会理会这些，它只是傻傻比对指针，因此基本不会找到结果。（假如可以找到结果，那就是hash表中存的char*和你输入的char*正好相同）
+而在find操作中(假设用来insert的key已经在hash表中，本应可以命中的)，同理可以找到bucket，但是在比对key时用的是char*指针，而实情却是char*所指的内容相同！但equal_to<char*>不会理会这些，它只是傻傻比对指针，因此基本不会找到结果。(假如可以找到结果，那就是hash表中存的char*和你输入的char*正好相同)
 
 	为什么改用string作为key，会无法通过编译？
 
@@ -108,7 +108,7 @@ hashtable的工作过程是：
 
 至此，总结下以后遇到这种情况怎么办。有两种方法：
 
-1. **写一个关于字符串的比较函数（类似于strcmp就可以），构造hash_map时传进去，保证在key比对时不是对比较指针而是比较字符串**
+1. **写一个关于字符串的比较函数(类似于strcmp就可以)，构造hash_map时传进去，保证在key比对时不是对比较指针而是比较字符串**
 2. **写一个接受string类型的hash函数，保证hash时string参数能被正确处理**
 
 #转折
