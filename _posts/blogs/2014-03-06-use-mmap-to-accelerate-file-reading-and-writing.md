@@ -14,16 +14,16 @@ permalink: /blogs/use-mmap-to-accelerate-file-reading-and-writing
 
 与普通I/O相比，`mmap`的优点在于：
 
-1. 建立了内存映射，不需要read、write时多余的缓存区copy
+1. 建立了内存映射，不需要`read`、`write`时多余的缓存区copy
 2. 由于内存映射的存在，避免了用户/内核态的切换
-3. mmap可以作为一种多进程共享内存的机制
-4. 减少系统调用lseek，而直接用指针操作代替
+3. `mmap`可以作为一种多进程共享内存的机制
+4. 减少系统调用`lseek`，而直接用指针操作代替
 
 同时，`mmap`也有一定的缺点：
 
 1. 建立内存映射时会按页对齐，假如文件非常细碎，积累效应会导致有内存浪费
 2. 大量细碎小文件会使进程地址空间产生大量碎片，导致寻址时间逐渐变长
-3. 如果初次mmap时映射的大小不够，则需要通过mremap增大映射空间，可能会带来额外的时间损耗
+3. 如果初次`mmap`时映射的大小不够，则需要通过`mremap`增大映射空间，可能会带来额外的时间损耗
 
 下面
 
@@ -176,5 +176,5 @@ bool rxs_util::munmapfile(char* &ptr, int len, mmap_mode_t mode)
 }
 ```
 
-以上代码定义了基于mmap的两种模式：MODE_TO_READ、MODE_TO_WRITE，以此来达到快速读写文件的功能。
+以上代码定义了基于`mmap`的两种模式：`MODE_TO_READ`、`MODE_TO_WRITE`，以此来达到快速读写文件的功能。
 
